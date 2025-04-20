@@ -1,3 +1,6 @@
+"use client";
+
+import SearchField from "@/components/search-field";
 import UserButton from "@/components/user-button";
 import Link from "next/link";
 
@@ -9,7 +12,9 @@ export default function Navbar() {
           bugbook
         </Link>
 
-        <UserButton />
+        <SearchField />
+
+        <UserButton className="sm:ms-auto" />
       </div>
     </header>
   );
