@@ -46,6 +46,10 @@ export const validateRequest = cache(
     const sessionId =
       (await cookies()).get(lucia.sessionCookieName)?.value ?? null;
 
+    console.log("====================================");
+    console.log("sessionId ==>", sessionId);
+    console.log("====================================");
+
     if (!sessionId) {
       return { user: null, session: null };
     }
