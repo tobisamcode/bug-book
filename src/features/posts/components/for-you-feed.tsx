@@ -1,10 +1,11 @@
 "use client";
 
-import { useGetPostFeeds } from "@/app/services/post";
+import { useGetPostFeeds } from "@/app/services/post/queries";
 import { Loader2 } from "lucide-react";
 import Post from "./post";
 import InfiniteScrollContainer from "@/components/infinite-scroll-container";
 import PostsLoadingSkeleton from "./loading-skeleton";
+import DeletePostDialog from "./delete-post-dialog";
 
 export default function ForYouFeed() {
   const {
