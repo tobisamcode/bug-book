@@ -4,10 +4,12 @@ import { useGetPostFeeds } from "@/app/services/post";
 import { Loader2 } from "lucide-react";
 import Post from "./post";
 import InfiniteScrollContainer from "@/components/infinite-scroll-container";
+import PostsLoadingSkeleton from "./loading-skeleton";
 
 export default function ForYouFeed() {
   const {
     data,
+    isSuccess,
     isPending,
     error,
     fetchNextPage,
@@ -16,8 +18,18 @@ export default function ForYouFeed() {
     isFetchingNextPage,
   } = useGetPostFeeds();
 
+  const posts = data?.pages.flatMap((page) => page.posts) || [];
+
   if (isPending) {
-    return <Loader2 className="mx-auto animate-spin" />;
+    return <PostsLoadingSkeleton />;
+  }
+
+  if (isSuccess && !posts.length && !hasNextPage) {
+    return (
+      <p className="text-muted-foreground text-center">
+        No one has posted yet.
+      </p>
+    );
   }
 
   if (error) {
@@ -27,8 +39,6 @@ export default function ForYouFeed() {
       </p>
     );
   }
-
-  const posts = data.pages.flatMap((page) => page.posts) || [];
 
   return (
     <InfiniteScrollContainer
