@@ -7,7 +7,7 @@ import UserAvatar from "@/components/user-avatar";
 import { useSession } from "@/app/(main)/session-provider";
 
 import "./styles.css";
-import { useSubmitPostMuation } from "@/app/services/post/mutations";
+import { useSubmitPostMuation } from "@/features/posts/services/mutations";
 import LoadingButton from "@/components/loading-button";
 
 export default function PostEditor() {

@@ -1,13 +1,19 @@
 "use client";
 
-import { useGetPostFeeds } from "@/features/posts/services/queries";
+import {
+  useGetPostFeeds,
+  useGetUserPostFeeds,
+} from "@/features/posts/services/queries";
 import { Loader2 } from "lucide-react";
-import Post from "./post";
 import InfiniteScrollContainer from "@/components/infinite-scroll-container";
-import PostsLoadingSkeleton from "./loading-skeleton";
-import DeletePostDialog from "./delete-post-dialog";
+import PostsLoadingSkeleton from "@/features/posts/components/loading-skeleton";
+import Post from "@/features/posts/components/post";
 
-export default function ForYouFeed() {
+interface UserPostsProps {
+  userId: string;
+}
+
+export default function UserPosts({ userId }: UserPostsProps) {
   const {
     data,
     isSuccess,
@@ -17,7 +23,7 @@ export default function ForYouFeed() {
     hasNextPage,
     isFetching,
     isFetchingNextPage,
-  } = useGetPostFeeds();
+  } = useGetUserPostFeeds(userId);
 
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
@@ -28,7 +34,7 @@ export default function ForYouFeed() {
   if (isSuccess && !posts.length && !hasNextPage) {
     return (
       <p className="text-muted-foreground text-center">
-        No one has posted yet.
+        This user has no posts yet.
       </p>
     );
   }

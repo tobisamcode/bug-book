@@ -1,13 +1,16 @@
 "use client";
 
-import { useGetPostFeeds } from "@/features/posts/services/queries";
+import {
+  useGetFollowingFeeds,
+  useGetPostFeeds,
+} from "@/features/posts/services/queries";
 import { Loader2 } from "lucide-react";
 import Post from "./post";
 import InfiniteScrollContainer from "@/components/infinite-scroll-container";
 import PostsLoadingSkeleton from "./loading-skeleton";
 import DeletePostDialog from "./delete-post-dialog";
 
-export default function ForYouFeed() {
+export default function FollowingFeed() {
   const {
     data,
     isSuccess,
@@ -17,7 +20,7 @@ export default function ForYouFeed() {
     hasNextPage,
     isFetching,
     isFetchingNextPage,
-  } = useGetPostFeeds();
+  } = useGetFollowingFeeds();
 
   const posts = data?.pages.flatMap((page) => page.posts) || [];
 
@@ -28,7 +31,7 @@ export default function ForYouFeed() {
   if (isSuccess && !posts.length && !hasNextPage) {
     return (
       <p className="text-muted-foreground text-center">
-        No one has posted yet.
+        No posts found, start following some users to see their posts here.
       </p>
     );
   }
